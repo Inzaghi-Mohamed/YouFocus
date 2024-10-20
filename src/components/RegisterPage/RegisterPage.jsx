@@ -13,7 +13,7 @@ function RegisterPage() {
       <center>
         <button
           type="button"
-          className="btn btn_asLink"
+          className="bg-green-500 hover:bg-green-700   text-white p-2 my-2 border rounded-md cursor-pointer"
           onClick={() => {
             history.push('/login');
           }}

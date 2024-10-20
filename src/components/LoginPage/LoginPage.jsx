@@ -12,7 +12,7 @@ function LoginPage() {
       <center>
         <button
           type="button"
-          className="btn btn_asLink"
+          className="bg-green-500 text-white p-2 my-2 border rounded-md hover:cursor-pointer"
           onClick={() => {
             history.push('/registration');
           }}

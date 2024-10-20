@@ -17,18 +17,18 @@ function RegisterForm() {
         password: password,
       },
     });
-  }; // end registerUser
+  };
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+    <form className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md" onSubmit={registerUser}>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Register User</h2>
       {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
+        <h3 className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
+      <div className="mb-4">
+        <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
           Username:
           <input
             type="text"
@@ -36,11 +36,12 @@ function RegisterForm() {
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-1"
           />
         </label>
       </div>
-      <div>
-        <label htmlFor="password">
+      <div className="mb-6">
+        <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
           Password:
           <input
             type="password"
@@ -48,11 +49,17 @@ function RegisterForm() {
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-1"
           />
         </label>
       </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+      <div className="flex items-center justify-center">
+        <input
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
+          type="submit"
+          name="submit"
+          value="Register"
+        />
       </div>
     </form>
   );
