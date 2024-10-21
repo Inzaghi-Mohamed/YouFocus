@@ -57,8 +57,8 @@ function Courses() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Welcome, {user.username}!</h2>
+    <div className="container mx-auto mt-20 px-4 py-8">
+      <h2 className="text-2xl font-bold mb-4">Welcome, <span className='text-green-400'>{user.username} !</span></h2>
       <h1 className="text-3xl font-bold mb-8 text-center">My Courses</h1>
       <div className="flex flex-col md:flex-row gap-8">
         {/* Left side: Course List */}

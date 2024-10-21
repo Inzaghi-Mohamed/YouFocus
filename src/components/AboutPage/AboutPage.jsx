@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutPage() {
   return (
-    <div className="bg-white min-h-screen py-12">
+    <div className="bg-white min-h-screen py-12 mt-20">
       <div className="container mx-auto px-4 max-w-3xl">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
           About YouFocus

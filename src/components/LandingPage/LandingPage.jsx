@@ -10,7 +10,7 @@ function LandingPage() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
+    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen mt-4">
       {/* Hero Section */}
       <div className="container mx-auto px-6 py-16">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
