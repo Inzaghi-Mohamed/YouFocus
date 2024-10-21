@@ -31,7 +31,7 @@ function Nav() {
               {user.id && (
                 <>
                   <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/user">
-                    Home
+                    Courses
                   </Link>
                   <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/info">
                     Info Page
@@ -67,7 +67,7 @@ function Nav() {
             {user.id && (
               <>
                 <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/user" onClick={toggleMenu}>
-                  Home
+                 Courses
                 </Link>
                 <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/info" onClick={toggleMenu}>
                   Info Page
