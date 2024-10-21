@@ -20,7 +20,7 @@ function RegisterForm() {
   };
 
   return (
-    <form className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md" onSubmit={registerUser}>
+    <form className="max-w-md mx-auto p-6 bg-white mt-3 rounded-lg shadow-md" onSubmit={registerUser}>
       <h2 className="text-2xl font-bold mb-6 text-center text-green-800" >Register</h2>
       {errors.registrationMessage && (
         <h3 className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">

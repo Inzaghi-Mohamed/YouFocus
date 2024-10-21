@@ -24,8 +24,8 @@ function Nav() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {!user.id && (
-                <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/login">
-                  Login / Register
+                <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/registration">
+                  Get Started
                 </Link>
               )}
               {user.id && (
@@ -61,7 +61,7 @@ function Nav() {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {!user.id && (
               <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/login" onClick={toggleMenu}>
-                Login / Register
+                Get Started
               </Link>
             )}
             {user.id && (

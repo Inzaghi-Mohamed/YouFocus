@@ -9,8 +9,9 @@ function RegisterPage() {
   return (
     <div>
       <RegisterForm />
-
+     
       <center>
+      <h2 className='font-bold my-2'>Already a YouFocus member?</h2>
         <button
           type="button"
           className="bg-green-500 hover:bg-green-700   text-white p-2 my-2 border rounded-md cursor-pointer"
