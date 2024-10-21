@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../Courses/Courses';
-import InfoPage from '../InfoPage/InfoPage';
+import Notes from '../Notes/Notes';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -64,7 +64,7 @@ function App() {
             exact
             path="/info"
           >
-            <InfoPage />
+           <Notes/>
           </ProtectedRoute>
 
           <Route

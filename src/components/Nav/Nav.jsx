@@ -34,7 +34,7 @@ function Nav() {
                     Courses
                   </Link>
                   <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/info">
-                    Info Page
+                   Notes
                   </Link>
                   <LogOutButton className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" />
                 </>
@@ -70,7 +70,7 @@ function Nav() {
                  Courses
                 </Link>
                 <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/info" onClick={toggleMenu}>
-                  Info Page
+                 Notes
                 </Link>
                 <LogOutButton className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left" onClick={toggleMenu} />
               </>
