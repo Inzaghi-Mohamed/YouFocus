@@ -9,6 +9,81 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
 import { Edit, Trash2, Youtube } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog"
+
+function EditCourseModal({ isOpen, onClose, course, onUpdate }) {
+  const [title, setTitle] = useState(course?.title || '')
+  const [description, setDescription] = useState(course?.description || '')
+  const [progress, setProgress] = useState(course?.progress || 0)
+
+  useEffect(() => {
+    if (course) {
+      setTitle(course.title)
+      setDescription(course.description)
+      setProgress(course.progress)
+    }
+  }, [course])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onUpdate({ id: course.id, title, description, progress })
+    onClose()
+  }
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit Course</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-title">Title</Label>
+              <Input
+                id="edit-title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-description">Description</Label>
+              <Textarea
+                id="edit-description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                rows={3}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-progress">Progress</Label>
+              <Input
+                type="number"
+                id="edit-progress"
+                value={progress}
+                onChange={(e) => setProgress(Number(e.target.value))}
+                min="0"
+                max="100"
+                required
+              />
+            </div>
+          </div>
+          <DialogFooter className="mt-4">
+            <Button type="submit">Update Course</Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
 
 export default function Courses() {
   const dispatch = useDispatch()
@@ -18,7 +93,7 @@ export default function Courses() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [progress, setProgress] = useState(0)
-  const [editingCourseId, setEditingCourseId] = useState(null)
+  const [editingCourse, setEditingCourse] = useState(null)
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COURSES' })
@@ -26,28 +101,25 @@ export default function Courses() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (editingCourseId) {
-      dispatch({
-        type: 'UPDATE_COURSE',
-        payload: { id: editingCourseId, title, description, progress }
-      })
-      setEditingCourseId(null)
-    } else {
-      dispatch({
-        type: 'ADD_COURSE',
-        payload: { title, description, progress }
-      })
-    }
+    dispatch({
+      type: 'ADD_COURSE',
+      payload: { title, description, progress }
+    })
     setTitle('')
     setDescription('')
     setProgress(0)
   }
 
   const handleUpdate = (course) => {
-    setTitle(course.title)
-    setDescription(course.description)
-    setProgress(course.progress)
-    setEditingCourseId(course.id)
+    setEditingCourse(course)
+  }
+
+  const handleUpdateSubmit = (updatedCourse) => {
+    dispatch({
+      type: 'UPDATE_COURSE',
+      payload: updatedCourse
+    })
+    setEditingCourse(null)
   }
 
   const handleDelete = (courseId) => {
@@ -55,13 +127,6 @@ export default function Courses() {
       type: 'DELETE_COURSE',
       payload: courseId
     })
-  }
-
-  const cancelEdit = () => {
-    setEditingCourseId(null)
-    setTitle('')
-    setDescription('')
-    setProgress(0)
   }
 
   return (
@@ -110,11 +175,9 @@ export default function Courses() {
           )}
         </div>
 
-        {/* Right side: Add/Edit Course Form */}
+        {/* Right side: Add Course Form */}
         <div>
-          <h2 className="text-2xl font-semibold mb-4">
-            {editingCourseId ? 'Edit Course' : 'Add New Course'}
-          </h2>
+          <h2 className="text-2xl font-semibold mb-4">Add New Course</h2>
           <Card>
             <form onSubmit={handleSubmit}>
               <CardContent className="space-y-4">
@@ -150,20 +213,20 @@ export default function Courses() {
                   />
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button type="submit">
-                  {editingCourseId ? 'Update Course' : 'Add Course'}
-                </Button>
-                {editingCourseId && (
-                  <Button type="button" variant="outline" onClick={cancelEdit}>
-                    Cancel
-                  </Button>
-                )}
+              <CardFooter>
+                <Button type="submit">Add Course</Button>
               </CardFooter>
             </form>
           </Card>
         </div>
       </div>
+
+      <EditCourseModal
+        isOpen={!!editingCourse}
+        onClose={() => setEditingCourse(null)}
+        course={editingCourse}
+        onUpdate={handleUpdateSubmit}
+      />
     </div>
   )
 }
