@@ -11,7 +11,7 @@ function RegisterPage() {
       <RegisterForm />
      
       <center>
-      <h2 className='font-bold my-2'>Already a YouFocus member?</h2>
+      <h2 className='font-bold my-2'>Already have an account?</h2>
         <button
           type="button"
           className="bg-green-500 hover:bg-green-700   text-white p-2 my-2 border rounded-md cursor-pointer"

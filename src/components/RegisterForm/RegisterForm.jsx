@@ -21,7 +21,7 @@ function RegisterForm() {
 
   return (
     <form className="max-w-md mx-auto p-6 bg-white mt-3 rounded-lg shadow-md" onSubmit={registerUser}>
-      <h2 className="text-2xl font-bold mb-6 text-center text-green-800" >Register</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-green-800" >Sign Up</h2>
       {errors.registrationMessage && (
         <h3 className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
           {errors.registrationMessage}
@@ -53,13 +53,14 @@ function RegisterForm() {
           />
         </label>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center flex-col ">
         <input
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
           type="submit"
           name="submit"
-          value="Register"
+          value="Sign Up"
         />
+        <p className='font-thin mt-2'>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy.</p>
       </div>
     </form>
   );

@@ -9,7 +9,13 @@ function LoginPage() {
     <div>
       <LoginForm />
 
-      <center>
+      <div className="mt-4 flex items-center justify-center">
+        <div className="flex-grow h-px bg-gray-300"></div>
+        <p className="mx-4 text-gray-500">Or</p>
+        <div className="flex-grow h-px bg-gray-300"></div>
+      </div>
+
+      <center className="mt-4">
         <button
           type="button"
           className="bg-green-500 text-white p-2 my-2 border rounded-md hover:cursor-pointer"
@@ -17,7 +23,7 @@ function LoginPage() {
             history.push('/registration');
           }}
         >
-          Register
+          Create new Account
         </button>
       </center>
     </div>

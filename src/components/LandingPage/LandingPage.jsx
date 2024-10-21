@@ -21,6 +21,12 @@ function LandingPage() {
             <p className="text-xl lg:text-2xl text-gray-600 mb-8">
               Organize, Focus, and Succeed with YouFocus - Your Ultimate Learning Companion
             </p>
+            <button 
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl transition duration-300 ease-in-out transform hover:scale-105"
+            onClick={onLogin}
+          >
+           JOIN
+          </button>
           </div>
           <div className="lg:w-1/2">
             <img 
