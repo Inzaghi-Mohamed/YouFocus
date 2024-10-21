@@ -32,7 +32,13 @@ function EditCourseModal({ isOpen, onClose, course, onUpdate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onUpdate({ id: course.id, title, description, progress })
+    onUpdate({
+      id: course.id,
+      title,
+      description,
+      progress,
+      notes: course.notes // Preserve existing notes
+    })
     onClose()
   }
 
@@ -103,7 +109,7 @@ export default function Courses() {
     e.preventDefault()
     dispatch({
       type: 'ADD_COURSE',
-      payload: { title, description, progress }
+      payload: { title, description, progress, notes: '' }
     })
     setTitle('')
     setDescription('')

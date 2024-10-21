@@ -1,30 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+'use client'
 
-function Notes() {
-  const dispatch = useDispatch();
-  const courses = useSelector((state) => state.courses);
-  const [notes, setNotes] = useState({});
-  const [editingNoteId, setEditingNoteId] = useState(null);
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { Edit, Save, Trash2 } from 'lucide-react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
+export default function Notes() {
+  const dispatch = useDispatch()
+  const courses = useSelector((state) => state.courses)
+  const [notes, setNotes] = useState({})
+  const [editingNoteId, setEditingNoteId] = useState(null)
+  const [deletingNoteId, setDeletingNoteId] = useState(null)
 
   useEffect(() => {
-    // Initialize notes for each course
     const initialNotes = courses.reduce((acc, course) => {
-      acc[course.id] = course.notes || '';
-      return acc;
-    }, {});
-    setNotes(initialNotes);
-  }, [courses]);
+      acc[course.id] = course.notes || ''
+      return acc
+    }, {})
+    setNotes(initialNotes)
+  }, [courses])
 
   const handleNoteChange = (courseId, value) => {
     setNotes(prevNotes => ({
       ...prevNotes,
       [courseId]: value
-    }));
-  };
+    }))
+  }
 
   const handleSaveNote = (courseId) => {
-    const updatedCourse = courses.find(course => course.id === courseId);
+    const updatedCourse = courses.find(course => course.id === courseId)
     if (updatedCourse) {
       dispatch({
         type: 'UPDATE_COURSE',
@@ -32,17 +48,21 @@ function Notes() {
           ...updatedCourse,
           notes: notes[courseId]
         }
-      });
+      })
     }
-    setEditingNoteId(null);
-  };
+    setEditingNoteId(null)
+  }
 
   const handleEditNote = (courseId) => {
-    setEditingNoteId(courseId);
-  };
+    setEditingNoteId(courseId)
+  }
 
   const handleDeleteNote = (courseId) => {
-    const updatedCourse = courses.find(course => course.id === courseId);
+    setDeletingNoteId(courseId)
+  }
+
+  const confirmDeleteNote = () => {
+    const updatedCourse = courses.find(course => course.id === deletingNoteId)
     if (updatedCourse) {
       dispatch({
         type: 'UPDATE_COURSE',
@@ -50,56 +70,68 @@ function Notes() {
           ...updatedCourse,
           notes: ''
         }
-      });
+      })
     }
     setNotes(prevNotes => ({
       ...prevNotes,
-      [courseId]: ''
-    }));
-  };
+      [deletingNoteId]: ''
+    }))
+    setDeletingNoteId(null)
+  }
 
   return (
     <div className="container mx-auto mt-20 px-4 py-8">
       <h2 className="text-3xl font-bold mb-8 text-center">My Notes</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {courses.map((course) => (
-          <div key={course.id} className="bg-white shadow rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">{course.title}</h3>
-            <textarea
-              value={notes[course.id] || ''}
-              onChange={(e) => handleNoteChange(course.id, e.target.value)}
-              disabled={editingNoteId !== course.id}
-              className="w-full h-32 p-2 border rounded-md mb-4 resize-none"
-              placeholder="Take your notes here..."
-            />
-            <div className="flex justify-between">
+          <Card key={course.id}>
+            <CardHeader>
+              <CardTitle>{course.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Textarea
+                value={notes[course.id] || ''}
+                onChange={(e) => handleNoteChange(course.id, e.target.value)}
+                disabled={editingNoteId !== course.id}
+                className="min-h-[128px]"
+                placeholder="Take your notes here..."
+              />
+            </CardContent>
+            <CardFooter className="flex justify-between">
               {editingNoteId === course.id ? (
-                <button
-                  onClick={() => handleSaveNote(course.id)}
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
+                <Button onClick={() => handleSaveNote(course.id)} variant="default">
+                  <Save className="w-4 h-4 mr-2" />
                   Save
-                </button>
+                </Button>
               ) : (
-                <button
-                  onClick={() => handleEditNote(course.id)}
-                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                >
+                <Button onClick={() => handleEditNote(course.id)} variant="secondary">
+                  <Edit className="w-4 h-4 mr-2" />
                   Edit
-                </button>
+                </Button>
               )}
-              <button
-                onClick={() => handleDeleteNote(course.id)}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-              >
+              <Button onClick={() => handleDeleteNote(course.id)} variant="destructive">
+                <Trash2 className="w-4 h-4 mr-2" />
                 Delete
-              </button>
-            </div>
-          </div>
+              </Button>
+            </CardFooter>
+          </Card>
         ))}
       </div>
-    </div>
-  );
-}
 
-export default Notes;
+      <AlertDialog open={deletingNoteId !== null} onOpenChange={() => setDeletingNoteId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure you want to delete this note?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the note for this course.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDeleteNote}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  )
+}
