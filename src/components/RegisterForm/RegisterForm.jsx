@@ -21,7 +21,7 @@ function RegisterForm() {
 
   return (
     <form className="max-w-md mx-auto p-6 bg-white mt-20 rounded-lg shadow-md" onSubmit={registerUser}>
-      <h2 className="text-2xl font-bold mb-6 text-center text-green-800" >Sign Up</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-green-800 flex flex-col items-center justify-center" >Sign Up <span> <img src="/images/YouFocusLogo.png" alt="" className='w-14 border rounded-full ' /></span></h2>
       {errors.registrationMessage && (
         <h3 className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
           {errors.registrationMessage}

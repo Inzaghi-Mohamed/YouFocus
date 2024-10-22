@@ -25,7 +25,10 @@ function LoginForm() {
 
   return (
     <form className="max-w-md mx-auto mt-20 p-6 bg-white rounded-lg shadow-md" onSubmit={login}>
-      <h2 className="text-2xl font-bold mb-6 text-center text-green-600">Login</h2>
+<div className='flex flex-col'>
+<h2 className="text-2xl font-bold mb-6 text-center text-green-600 flex flex-col items-center justify-center">Login <span> <img src="/images/YouFocusLogo.png" alt="" className='w-14 border rounded-full ' /></span></h2>
+</div>
+      
       {errors.loginMessage && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
           <span className="block sm:inline">{errors.loginMessage}</span>

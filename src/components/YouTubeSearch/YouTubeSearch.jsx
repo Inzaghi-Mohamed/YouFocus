@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { Skeleton } from "@/components/ui/skeleton"
-// import { useToast } from "@/hooks/use-toast"
+// import { toast } from "@/hooks/use-toast"
 
 const YouTubeSearch = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [videos, setVideos] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [nextPageToken, setNextPageToken] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [fetchedData, setFetchedData] = useState(null);
   const location = useLocation();
-  // const { toast } = useToast()
   const user = useSelector((state) => state.user);
-  const API_KEY =  "AIzaSyAMFllGUDjvzGORrLjW-nZUr4-U7tKMk20"
+  const API_KEY = "AIzaSyDS5AKLQYGy3FJ65HWSxIkjSqZ0LTIZYIw"
   const MAX_RESULTS = 12;
   const MINIMUM_LOADING_TIME = 2000; // 2 seconds
 
@@ -58,6 +58,11 @@ const YouTubeSearch = () => {
     } catch (error) {
       console.error('Error fetching videos:', error);
       setIsLoading(false);
+      toast({
+        title: "Error",
+        description: "Failed to fetch videos. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -92,7 +97,11 @@ const YouTubeSearch = () => {
         videoData 
       } 
     });
-   alert('Added to selected videos')
+    // toast({
+    //   title: "Video Added",
+    //   description: "The video has been added to your course.",
+    // });
+    history.push('/selectedvideos');
   };
 
   const SkeletonVideo = () => (

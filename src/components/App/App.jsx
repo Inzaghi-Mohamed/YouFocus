@@ -79,7 +79,7 @@ function App() {
           {/* New ProtectedRoute for Selected Videos */}
           <ProtectedRoute
             exact
-            path="/selected-videos"
+            path="/selectedVideos"
           >
             <SelectedVideo />
           </ProtectedRoute>

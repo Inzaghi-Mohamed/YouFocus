@@ -143,8 +143,8 @@ export default function Courses() {
 
   return (
     <div className="container mx-auto mt-20 px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Welcome, <span className='text-primary'>{user.username}!</span></h2>
-      <h1 className="text-3xl font-bold mb-8 text-center">My Courses</h1>
+      <h2 className="text-2xl font-bold mb-4">Welcome,  <span className='text-blue-500 border p-2 outline-dotted'>{user.username}!</span></h2>
+      <h1 className="text-3xl font-bold mb-8 text-center text-green-500 border p-2  my-5">My Courses</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left side: Course List */}
         <div>

@@ -22,7 +22,8 @@ export default function Notes() {
   const courses = useSelector((state) => state.courses)
   const [notes, setNotes] = useState({})
   const [editingNoteId, setEditingNoteId] = useState(null)
-  const [deletingNoteId, setDeletingNoteId] = useState(null)
+  const [deletingNoteId, setDeletingNoteId] = useState(null);
+  const notesSufix = 'Notes'
 
   useEffect(() => {
     const initialNotes = courses.reduce((acc, course) => {
@@ -86,7 +87,7 @@ export default function Notes() {
         {courses.map((course) => (
           <Card key={course.id}>
             <CardHeader>
-              <CardTitle>{course.title}</CardTitle>
+              <CardTitle>{course.title.toUpperCase()} - {notesSufix}</CardTitle>
             </CardHeader>
             <CardContent>
               <Textarea
@@ -100,7 +101,7 @@ export default function Notes() {
             <CardFooter className="flex justify-between">
               {editingNoteId === course.id ? (
                 <Button onClick={() => handleSaveNote(course.id)} variant="default">
-                  <Save className="w-4 h-4 mr-2" />
+                  <Save className="w-4 h-4 mr-2 " />
                   Save
                 </Button>
               ) : (
