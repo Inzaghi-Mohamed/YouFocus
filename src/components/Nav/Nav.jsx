@@ -36,6 +36,12 @@ function Nav() {
                   <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/info">
                    Notes
                   </Link>
+                  <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/Yt-search">
+                 Youtube Search
+                  </Link>
+                  <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/selectedVideos">
+                Selected Videos
+                </Link>
                   <LogOutButton className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" />
                 </>
               )}
@@ -71,6 +77,12 @@ function Nav() {
                 </Link>
                 <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/info" onClick={toggleMenu}>
                  Notes
+                </Link>
+                <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/Yt-search" onClick={toggleMenu}>
+                YouTube Search
+                </Link>
+                <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/selectedVideos" onClick={toggleMenu}>
+                Selected Videos
                 </Link>
                 <LogOutButton className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left" onClick={toggleMenu} />
               </>

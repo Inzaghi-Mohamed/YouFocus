@@ -19,7 +19,8 @@ import Notes from '../Notes/Notes';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import YouTubeSearch from '../YouTubeSearch/YouTubeSearch';
+import SelectedVideo from '../SelectedVideos/SelectedVideos'; // Import the SelectedVideo component
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,22 @@ function App() {
             path="/info"
           >
            <Notes/>
+          </ProtectedRoute>
+
+          {/* New ProtectedRoute for YouTube Search */}
+          <ProtectedRoute
+            exact
+            path="/yt-search"
+          >
+            <YouTubeSearch />
+          </ProtectedRoute>
+
+          {/* New ProtectedRoute for Selected Videos */}
+          <ProtectedRoute
+            exact
+            path="/selected-videos"
+          >
+            <SelectedVideo />
           </ProtectedRoute>
 
           <Route

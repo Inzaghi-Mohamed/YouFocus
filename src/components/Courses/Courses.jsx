@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -95,6 +96,7 @@ export default function Courses() {
   const dispatch = useDispatch()
   const courses = useSelector((state) => state.courses)
   const user = useSelector((state) => state.user)
+  const history = useHistory()
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -135,6 +137,10 @@ export default function Courses() {
     })
   }
 
+  const handleYouTubeSearch = (courseTitle) => {
+    history.push(`/Yt-search?query=${encodeURIComponent(courseTitle)}`)
+  }
+
   return (
     <div className="container mx-auto mt-20 px-4 py-8">
       <h2 className="text-2xl font-bold mb-4">Welcome, <span className='text-primary'>{user.username}!</span></h2>
@@ -170,7 +176,11 @@ export default function Courses() {
                         Delete
                       </Button>
                     </div>
-                    <Button variant="secondary" size="sm">
+                    <Button 
+                      variant="secondary" 
+                      size="sm" 
+                      onClick={() => handleYouTubeSearch(course.title)}
+                    >
                       <Youtube className="w-4 h-4 mr-2" />
                       Search on YouTube
                     </Button>
