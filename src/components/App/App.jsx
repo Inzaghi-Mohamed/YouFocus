@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Toaster } from './Components/ui/toaster';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';

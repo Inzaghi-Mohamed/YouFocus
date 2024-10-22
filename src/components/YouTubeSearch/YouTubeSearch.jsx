@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button"
 
 const YouTubeSearch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const { toast } = useToast()
   const user = useSelector((state) => state.user);
   const { items: videos, nextPageToken } = useSelector((state) => state.videos.youtubeSearchResults);
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,6 +44,10 @@ const YouTubeSearch = () => {
       search_query: searchQuery
     };
     dispatch({ type: 'ADD_VIDEO', payload: videoData });
+    toast({
+      title: "Video Added",
+      description: "The video has been added to your course.",
+    })
     history.push('/selectedvideos');
   };
 
@@ -68,12 +75,12 @@ const YouTubeSearch = () => {
           placeholder="Search for Videos"
           className='w-full p-2 border border-gray-300 rounded mb-4'
         />
-        <button 
+        <Button 
           onClick={() => handleSearch(searchQuery)}
-          className='w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors'
+          className='w-full'
         >
           Search Videos
-        </button>
+        </Button>
       </div>
       
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
@@ -97,12 +104,12 @@ const YouTubeSearch = () => {
               <div className='p-4 flex-grow'>
                 <h3 className='text-lg font-semibold mb-2 truncate'>{video.snippet.title}</h3>
                 <p className='text-sm text-gray-600 mb-4 truncate'>{video.snippet.description}</p>
-                <button 
+                <Button 
                   onClick={() => handleAddToCourse(video)}
-                  className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors'
+                  variant="secondary"
                 >
                   Add To Course
-                </button>
+                </Button>
               </div>
             </div>
           ))
@@ -111,12 +118,12 @@ const YouTubeSearch = () => {
 
       {nextPageToken && !isLoading && (
         <div className='text-center mt-8'>
-          <button 
+          <Button 
             onClick={handleLoadMore}
-            className='w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors'
+            className='w-full'
           >
             Load More
-          </button>
+          </Button>
         </div>
       )}
     </div>

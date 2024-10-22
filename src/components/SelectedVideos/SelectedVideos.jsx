@@ -7,32 +7,25 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const SelectedVideo = () => {
   const dispatch = useDispatch();
-  const videos = useSelector((state) => state.videos);
+  const savedVideos = useSelector((state) => state.videos.savedVideos);
   const user = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (user.id) {
       setIsLoading(true);
-      dispatch({ type: 'FETCH_VIDEOS', payload: user.id });
+      dispatch({ type: 'FETCH_VIDEOS' });
     }
   }, [dispatch, user.id]);
 
   useEffect(() => {
-    if (videos) {
+    if (savedVideos) {
       setIsLoading(false);
     }
-  }, [videos]);
-
-  // Add this effect to re-fetch videos when the videos array changes
-  useEffect(() => {
-    if (user.id) {
-      dispatch({ type: 'FETCH_VIDEOS', payload: user.id });
-    }
-  }, [dispatch, user.id, videos.length]);
+  }, [savedVideos]);
 
   const handleDelete = (videoId) => {
-    dispatch({ type: 'DELETE_VIDEO', payload: { userId: user.id, videoId } });
+    dispatch({ type: 'DELETE_VIDEO', payload: videoId });
     toast({
       title: "Video Deleted",
       description: "The video has been removed from your course.",
@@ -40,7 +33,7 @@ const SelectedVideo = () => {
   };
 
   // Group videos by search query
-  const videosByQuery = videos.reduce((acc, video) => {
+  const videosByQuery = savedVideos.reduce((acc, video) => {
     if (!acc[video.search_query]) {
       acc[video.search_query] = [];
     }
