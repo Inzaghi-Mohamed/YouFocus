@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import { Skeleton } from "@/components/ui/skeleton"
-// import { toast } from "@/hooks/use-toast"
 
 const YouTubeSearch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [videos, setVideos] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [nextPageToken, setNextPageToken] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [fetchedData, setFetchedData] = useState(null);
   const location = useLocation();
   const user = useSelector((state) => state.user);
-  const API_KEY = "AIzaSyDS5AKLQYGy3FJ65HWSxIkjSqZ0LTIZYIw"
+  const { items: videos, nextPageToken } = useSelector((state) => state.videos.youtubeSearchResults);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const MAX_RESULTS = 12;
   const MINIMUM_LOADING_TIME = 2000; // 2 seconds
 
@@ -24,63 +19,18 @@ const YouTubeSearch = () => {
     const query = params.get('query');
     if (query) {
       setSearchQuery(query);
-      fetchVideos(query);
+      handleSearch(query);
     }
   }, [location]);
 
-  const fetchVideos = async (query, pageToken = '') => {
+  const handleSearch = (query) => {
     setIsLoading(true);
-    const startTime = Date.now();
-    try {
-      const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-        params: {
-          part: 'snippet',
-          q: query || searchQuery,
-          type: 'video',
-          maxResults: MAX_RESULTS,
-          key: API_KEY,
-          pageToken: pageToken
-        }
-      });
-      
-      console.log('Response:', response.data);
-      
-      const endTime = Date.now();
-      const loadingTime = endTime - startTime;
-      
-      if (loadingTime < MINIMUM_LOADING_TIME) {
-        setTimeout(() => {
-          setFetchedData({ response: response.data, pageToken });
-        }, MINIMUM_LOADING_TIME - loadingTime);
-      } else {
-        setFetchedData({ response: response.data, pageToken });
-      }
-    } catch (error) {
-      console.error('Error fetching videos:', error);
-      setIsLoading(false);
-      toast({
-        title: "Error",
-        description: "Failed to fetch videos. Please try again.",
-        variant: "destructive",
-      });
-    }
+    dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query } });
+    setTimeout(() => setIsLoading(false), MINIMUM_LOADING_TIME);
   };
 
-  useEffect(() => {
-    if (fetchedData) {
-      if (fetchedData.pageToken === '') {
-        setVideos(fetchedData.response.items);
-      } else {
-        setVideos(prevVideos => [...prevVideos, ...fetchedData.response.items]);
-      }
-      setNextPageToken(fetchedData.response.nextPageToken || '');
-      setIsLoading(false);
-      setFetchedData(null);
-    }
-  }, [fetchedData]);
-
   const handleLoadMore = () => {
-    fetchVideos(searchQuery, nextPageToken);
+    dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query: searchQuery, pageToken: nextPageToken } });
   };
 
   const handleAddToCourse = (video) => {
@@ -90,17 +40,7 @@ const YouTubeSearch = () => {
       description: video.snippet.description,
       search_query: searchQuery
     };
-    dispatch({ 
-      type: 'ADD_VIDEO', 
-      payload: { 
-        userId: user.id, 
-        videoData 
-      } 
-    });
-    // toast({
-    //   title: "Video Added",
-    //   description: "The video has been added to your course.",
-    // });
+    dispatch({ type: 'ADD_VIDEO', payload: videoData });
     history.push('/selectedvideos');
   };
 
@@ -129,7 +69,7 @@ const YouTubeSearch = () => {
           className='w-full p-2 border border-gray-300 rounded mb-4'
         />
         <button 
-          onClick={() => fetchVideos(searchQuery)}
+          onClick={() => handleSearch(searchQuery)}
           className='w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors'
         >
           Search Videos

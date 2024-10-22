@@ -1,19 +1,34 @@
-// videoReducer.js
-const initialState = [];
+const initialState = {
+  savedVideos: [],
+  youtubeSearchResults: {
+    items: [],
+    nextPageToken: null
+  },
+  error: null
+};
 
 const videoReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_VIDEOS':
-      return action.payload;
+      return { ...state, savedVideos: action.payload };
     case 'ADD_VIDEO_SUCCESS':
-      return [...state, action.payload];
+      return { ...state, savedVideos: [...state.savedVideos, action.payload] };
     case 'DELETE_VIDEO_SUCCESS':
-      return state.filter(video => video.id !== action.payload);
+      return { ...state, savedVideos: state.savedVideos.filter(video => video.id !== action.payload) };
+    case 'SET_YOUTUBE_SEARCH_RESULTS':
+      return {
+        ...state,
+        youtubeSearchResults: {
+          items: action.payload.items,
+          nextPageToken: action.payload.nextPageToken
+        }
+      };
     case 'FETCH_VIDEOS_ERROR':
     case 'ADD_VIDEO_ERROR':
     case 'DELETE_VIDEO_ERROR':
-      console.log('Error in video operation');
-      return state;
+    case 'YOUTUBE_SEARCH_ERROR':
+      console.log('Error in video operation:', action.payload);
+      return { ...state, error: action.payload };
     default:
       return state;
   }
