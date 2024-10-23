@@ -23,14 +23,22 @@ export default function Notes() {
   const [notes, setNotes] = useState({})
   const [editingNoteId, setEditingNoteId] = useState(null)
   const [deletingNoteId, setDeletingNoteId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const notesSufix = 'Notes'
 
   useEffect(() => {
-    const initialNotes = courses.reduce((acc, course) => {
-      acc[course.id] = course.notes || ''
-      return acc
-    }, {})
-    setNotes(initialNotes)
+    dispatch({ type: 'FETCH_COURSES' })
+  }, [dispatch])
+
+  useEffect(() => {
+    if (courses.length > 0) {
+      const initialNotes = courses.reduce((acc, course) => {
+        acc[course.id] = course.notes || ''
+        return acc
+      }, {})
+      setNotes(initialNotes)
+      setIsLoading(false)
+    }
   }, [courses])
 
   const handleNoteChange = (courseId, value) => {
@@ -78,6 +86,10 @@ export default function Notes() {
       [deletingNoteId]: ''
     }))
     setDeletingNoteId(null)
+  }
+
+  if (isLoading) {
+    return <div>Loading notes...</div>
   }
 
   return (
