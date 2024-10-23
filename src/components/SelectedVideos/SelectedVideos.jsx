@@ -69,7 +69,6 @@ const SelectedVideo = () => {
                 <Card key={video.id} className="flex flex-col">
                   <CardHeader>
                     <CardTitle>{video.title}</CardTitle>
-                    <CardDescription>Added on: {new Date(video.added_at).toLocaleDateString()}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-grow">
                     <div className="aspect-w-16 aspect-h-9 mb-4">
