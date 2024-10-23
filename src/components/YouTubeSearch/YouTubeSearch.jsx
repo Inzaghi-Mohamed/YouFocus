@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton } from "@/components/ui/skeleton"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 
 const YouTubeSearch = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const location = useLocation();
   const { toast } = useToast()
   const user = useSelector((state) => state.user);
@@ -47,8 +47,9 @@ const YouTubeSearch = () => {
     toast({
       title: "Video Added",
       description: "The video has been added to your course.",
-    })
-    history.push('/selectedvideos');
+    });
+    // Removed the immediate navigation to allow the user to see the toast
+    // and potentially add more videos before going to the selected videos page
   };
 
   const SkeletonVideo = () => (
@@ -63,7 +64,6 @@ const YouTubeSearch = () => {
       </div>
     </div>
   );
-
   return (
     <div className='container mx-auto px-4 py-8 '>
       <h2 className='text-center mb-4 font-bold'>YouTube Search View</h2>
@@ -77,7 +77,7 @@ const YouTubeSearch = () => {
         />
         <Button 
           onClick={() => handleSearch(searchQuery)}
-          className='w-full'
+          className='w-full bg-blue-600 hover:bg-blue-500'
         >
           Search Videos
         </Button>
@@ -107,6 +107,7 @@ const YouTubeSearch = () => {
                 <Button 
                   onClick={() => handleAddToCourse(video)}
                   variant="secondary"
+                  className='bg-green-600 hover:bg-green-500 text-white'
                 >
                   Add To Course
                 </Button>
