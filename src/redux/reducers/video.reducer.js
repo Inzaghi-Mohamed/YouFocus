@@ -23,6 +23,14 @@ const videoReducer = (state = initialState, action) => {
           nextPageToken: action.payload.nextPageToken
         }
       };
+    case 'APPEND_YOUTUBE_SEARCH_RESULTS':
+      return {
+        ...state,
+        youtubeSearchResults: {
+          items: [...state.youtubeSearchResults.items, ...action.payload.items],
+          nextPageToken: action.payload.nextPageToken
+        }
+      };
     case 'FETCH_VIDEOS_ERROR':
     case 'ADD_VIDEO_ERROR':
     case 'DELETE_VIDEO_ERROR':

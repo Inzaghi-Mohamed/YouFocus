@@ -25,6 +25,7 @@ const YouTubeSearch = () => {
     const query = params.get('query');
     if (query) {
       setSearchQuery(query);
+      handleSearch(query);
     }
   }, [location]);
 
@@ -32,16 +33,23 @@ const YouTubeSearch = () => {
     localStorage.setItem(`youtubeSearchQuery_${user.id}`, searchQuery);
   }, [searchQuery, user.id]);
 
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
+  const handleSearch = (query = searchQuery) => {
+    if (query.trim()) {
       setIsLoading(true);
-      dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query: searchQuery } });
+      dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query } });
       setTimeout(() => setIsLoading(false), MINIMUM_LOADING_TIME);
     }
   };
 
   const handleLoadMore = () => {
-    dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query: searchQuery, pageToken: nextPageToken } });
+    if (searchQuery.trim() && nextPageToken) {
+      setIsLoading(true);
+      dispatch({ 
+        type: 'LOAD_MORE_YOUTUBE_VIDEOS', 
+        payload: { query: searchQuery, pageToken: nextPageToken } 
+      });
+      setTimeout(() => setIsLoading(false), MINIMUM_LOADING_TIME);
+    }
   };
 
   const handleAddToCourse = (video) => {
@@ -57,7 +65,6 @@ const YouTubeSearch = () => {
       description: "The video has been added to your course.",
       className: "bg-green-500 border-white text-white",
       duration: 3000,
-
     });
   };
 
@@ -86,7 +93,7 @@ const YouTubeSearch = () => {
           className='w-full p-2 border border-gray-300 rounded mb-4'
         />
         <Button 
-          onClick={handleSearch}
+          onClick={() => handleSearch()}
           className='w-full bg-blue-600 hover:bg-blue-500'
         >
           Search Videos
@@ -94,38 +101,40 @@ const YouTubeSearch = () => {
       </div>
       
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {isLoading ? (
-          Array(MAX_RESULTS).fill().map((_, index) => (
-            <SkeletonVideo key={index} />
-          ))
-        ) : (
-          videos.map((video) => (
-            <div key={video.id.videoId} className='flex flex-col bg-white rounded-lg shadow-md overflow-hidden container mx-auto p-2 mb-2'>
-              <div className='relative pt-[56.25%] '>
-                <iframe
-                  className='absolute inset-0 w-full h-full'
-                  src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                  title={video.snippet.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className='p-4 flex-grow'>
-                <h3 className='text-lg font-semibold mb-2 truncate'>{video.snippet.title}</h3>
-                <p className='text-sm text-gray-600 mb-4 truncate'>{video.snippet.description}</p>
-                <Button 
-                  onClick={() => handleAddToCourse(video)}
-                  variant="secondary"
-                  className='bg-green-600 hover:bg-green-500 text-white border-none'
-                >
-                  Add To Course
-                </Button>
-              </div>
+        {videos.map((video) => (
+          <div key={video.id.videoId} className='flex flex-col bg-white rounded-lg shadow-md overflow-hidden container mx-auto p-2 mb-2'>
+            <div className='relative pt-[56.25%] '>
+              <iframe
+                className='absolute inset-0 w-full h-full'
+                src={`https://www.youtube.com/embed/${video.id.videoId}`}
+                title={video.snippet.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
-          ))
-        )}
+            <div className='p-4 flex-grow'>
+              <h3 className='text-lg font-semibold mb-2 truncate'>{video.snippet.title}</h3>
+              <p className='text-sm text-gray-600 mb-4 truncate'>{video.snippet.description}</p>
+              <Button 
+                onClick={() => handleAddToCourse(video)}
+                variant="secondary"
+                className='bg-green-600 hover:bg-green-500 text-white border-none'
+              >
+                Add To Course
+              </Button>
+            </div>
+          </div>
+        ))}
       </div>
+
+      {isLoading && (
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
+          {Array(MAX_RESULTS).fill().map((_, index) => (
+            <SkeletonVideo key={index} />
+          ))}
+        </div>
+      )}
 
       {nextPageToken && !isLoading && (
         <div className='text-center mt-8'>

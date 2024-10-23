@@ -41,7 +41,10 @@ function* searchYouTubeVideos(action) {
     const response = yield call(axios.get, '/api/youtube/search', {
       params: { query, pageToken }
     });
-    yield put({ type: 'SET_YOUTUBE_SEARCH_RESULTS', payload: response.data });
+    yield put({ 
+      type: action.type === 'SEARCH_YOUTUBE_VIDEOS' ? 'SET_YOUTUBE_SEARCH_RESULTS' : 'APPEND_YOUTUBE_SEARCH_RESULTS', 
+      payload: response.data 
+    });
   } catch (error) {
     console.error('Error searching YouTube videos:', error);
     yield put({ type: 'YOUTUBE_SEARCH_ERROR', payload: error.message });
@@ -52,7 +55,7 @@ function* videoSaga() {
   yield takeLatest('FETCH_VIDEOS', fetchVideos);
   yield takeLatest('ADD_VIDEO', addVideo);
   yield takeLatest('DELETE_VIDEO', deleteVideo);
-  yield takeLatest('SEARCH_YOUTUBE_VIDEOS', searchYouTubeVideos);
+  yield takeLatest(['SEARCH_YOUTUBE_VIDEOS', 'LOAD_MORE_YOUTUBE_VIDEOS'], searchYouTubeVideos);
 }
 
 export default videoSaga;
