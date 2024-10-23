@@ -17,6 +17,16 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
 function EditCourseModal({ isOpen, onClose, course, onUpdate }) {
   const [title, setTitle] = useState(course?.title || '')
@@ -102,6 +112,8 @@ export default function Courses() {
   const [description, setDescription] = useState('')
   const [progress, setProgress] = useState(0)
   const [editingCourse, setEditingCourse] = useState(null)
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false)
+  const [courseToDelete, setCourseToDelete] = useState(null)
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COURSES' })
@@ -131,10 +143,17 @@ export default function Courses() {
   }
 
   const handleDelete = (courseId) => {
+    setCourseToDelete(courseId)
+    setIsDeleteAlertOpen(true)
+  }
+
+  const confirmDelete = () => {
     dispatch({
       type: 'DELETE_COURSE',
-      payload: courseId
+      payload: courseToDelete
     })
+    setIsDeleteAlertOpen(false)
+    setCourseToDelete(null)
   }
 
   const handleYouTubeSearch = (courseTitle) => {
@@ -165,26 +184,31 @@ export default function Courses() {
                       <Progress value={course.progress} />
                     </div>
                   </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <div className="space-x-2">
+                  <CardFooter>
+                    <div className="flex justify-between items-center gap-40">
                       <Button variant="outline" size="sm" onClick={() => handleUpdate(course)}>
                         <Edit className="w-4 h-4 mr-2" />
                         Edit
                       </Button>
-                      <Button variant="destructive" size="sm" onClick={() => handleDelete(course.id)}>
+                      <Button variant="destructive"
+                       className ='bg-red-600 hover:bg-red-500 text-white'
+                       size="sm"
+                       onClick={() => handleDelete(course.id)}>
                         <Trash2 className="w-4 h-4 mr-2" />
                         Delete
                       </Button>
                     </div>
-                    <Button 
-                      variant="secondary" 
+                   
+                  </CardFooter>
+                  <Button 
+                      // variant="secondary" 
+                      className ='bg-red-600 hover:bg-red-500 text-white mx-2 my-3'
                       size="sm" 
                       onClick={() => handleYouTubeSearch(course.title)}
                     >
-                      <Youtube className="w-4 h-4 mr-2" />
+                      <Youtube className="w-4 h-4 mr-2 " />
                       Search on YouTube
                     </Button>
-                  </CardFooter>
                 </Card>
               ))}
             </div>
@@ -243,6 +267,21 @@ export default function Courses() {
         course={editingCourse}
         onUpdate={handleUpdateSubmit}
       />
+
+      <AlertDialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure you want to delete this course?</AlertDialogTitle>
+            <AlertDialogDescription>
+              The course and its notes will be deleted permanently.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsDeleteAlertOpen(false)}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

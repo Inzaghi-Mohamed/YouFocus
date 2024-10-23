@@ -28,7 +28,7 @@ const SelectedVideo = () => {
   const handleDelete = (videoId) => {
     dispatch({ type: 'DELETE_VIDEO', payload: videoId });
     toast({
-      title: "Video Deleted ⚠️",
+      title: "Video Deleted ✌️",
       description: "The video has been removed from your course.",
       variant: "destructive",
       className: "bg-red-500 text-white",

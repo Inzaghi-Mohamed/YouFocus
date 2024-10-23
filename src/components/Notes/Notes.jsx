@@ -124,7 +124,7 @@ export default function Notes() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure you want to delete this note?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the note for this course.
+              This action cannot be undone. This will permanently delete the note for this course. But not the Note card!
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
