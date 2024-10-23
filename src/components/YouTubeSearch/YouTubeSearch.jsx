@@ -11,9 +11,11 @@ const YouTubeSearch = () => {
   const { toast } = useToast()
   const user = useSelector((state) => state.user);
   const { items: videos, nextPageToken } = useSelector((state) => state.videos.youtubeSearchResults);
+  
   const [searchQuery, setSearchQuery] = useState(() => {
-    return localStorage.getItem('youtubeSearchQuery') || '';
+    return localStorage.getItem(`youtubeSearchQuery_${user.id}`) || '';
   });
+  
   const [isLoading, setIsLoading] = useState(false);
   const MAX_RESULTS = 12;
   const MINIMUM_LOADING_TIME = 2000; // 2 seconds
@@ -23,13 +25,12 @@ const YouTubeSearch = () => {
     const query = params.get('query');
     if (query) {
       setSearchQuery(query);
-      // Note: We're not automatically searching here
     }
   }, [location]);
 
   useEffect(() => {
-    localStorage.setItem('youtubeSearchQuery', searchQuery);
-  }, [searchQuery]);
+    localStorage.setItem(`youtubeSearchQuery_${user.id}`, searchQuery);
+  }, [searchQuery, user.id]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
@@ -52,10 +53,11 @@ const YouTubeSearch = () => {
     };
     dispatch({ type: 'ADD_VIDEO', payload: videoData });
     toast({
-      title: "✅Video Added",
+      title: "Video Added✅",
       description: "The video has been added to your course.",
-      variant: "success",
-      className: "bg-green-500 text-white",
+      className: "bg-green-500 border-white text-white",
+      duration: 3000,
+
     });
   };
 
