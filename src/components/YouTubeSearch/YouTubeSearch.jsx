@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Skeleton } from "@/components/ui/skeleton"
 import { useToast } from "@/hooks/use-toast"
@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button"
 
 const YouTubeSearch = () => {
   const dispatch = useDispatch();
-  // const history = useHistory();
   const location = useLocation();
   const { toast } = useToast()
   const user = useSelector((state) => state.user);
   const { items: videos, nextPageToken } = useSelector((state) => state.videos.youtubeSearchResults);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(() => {
+    return localStorage.getItem('youtubeSearchQuery') || '';
+  });
   const [isLoading, setIsLoading] = useState(false);
   const MAX_RESULTS = 12;
   const MINIMUM_LOADING_TIME = 2000; // 2 seconds
@@ -22,14 +23,20 @@ const YouTubeSearch = () => {
     const query = params.get('query');
     if (query) {
       setSearchQuery(query);
-      handleSearch(query);
+      // Note: We're not automatically searching here
     }
   }, [location]);
 
-  const handleSearch = (query) => {
-    setIsLoading(true);
-    dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query } });
-    setTimeout(() => setIsLoading(false), MINIMUM_LOADING_TIME);
+  useEffect(() => {
+    localStorage.setItem('youtubeSearchQuery', searchQuery);
+  }, [searchQuery]);
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      setIsLoading(true);
+      dispatch({ type: 'SEARCH_YOUTUBE_VIDEOS', payload: { query: searchQuery } });
+      setTimeout(() => setIsLoading(false), MINIMUM_LOADING_TIME);
+    }
   };
 
   const handleLoadMore = () => {
@@ -45,11 +52,11 @@ const YouTubeSearch = () => {
     };
     dispatch({ type: 'ADD_VIDEO', payload: videoData });
     toast({
-      title: "Video Added",
+      title: "✅Video Added",
       description: "The video has been added to your course.",
+      variant: "success",
+      className: "bg-green-500 text-white",
     });
-    // Removed the immediate navigation to allow the user to see the toast
-    // and potentially add more videos before going to the selected videos page
   };
 
   const SkeletonVideo = () => (
@@ -64,6 +71,7 @@ const YouTubeSearch = () => {
       </div>
     </div>
   );
+
   return (
     <div className='container mx-auto px-4 py-8 '>
       <h2 className='text-center mb-4 font-bold'>YouTube Search View</h2>
@@ -76,7 +84,7 @@ const YouTubeSearch = () => {
           className='w-full p-2 border border-gray-300 rounded mb-4'
         />
         <Button 
-          onClick={() => handleSearch(searchQuery)}
+          onClick={handleSearch}
           className='w-full bg-blue-600 hover:bg-blue-500'
         >
           Search Videos
@@ -107,7 +115,7 @@ const YouTubeSearch = () => {
                 <Button 
                   onClick={() => handleAddToCourse(video)}
                   variant="secondary"
-                  className='bg-green-600 hover:bg-green-500 text-white'
+                  className='bg-green-600 hover:bg-green-500 text-white border-none'
                 >
                   Add To Course
                 </Button>
@@ -121,7 +129,7 @@ const YouTubeSearch = () => {
         <div className='text-center mt-8'>
           <Button 
             onClick={handleLoadMore}
-            className='w-full'
+            className='w-full bg-blue-600 hover:bg-blue-500'
           >
             Load More
           </Button>

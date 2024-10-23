@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-// import { toast } from "@/hooks/use-toast"
+import { toast } from "@/hooks/use-toast"
 
 const SelectedVideo = () => {
   const dispatch = useDispatch();
   const savedVideos = useSelector((state) => state.videos.savedVideos);
   const user = useSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     if (user.id) {
@@ -29,6 +30,8 @@ const SelectedVideo = () => {
     toast({
       title: "Video Deleted",
       description: "The video has been removed from your course.",
+      variant: "destructive",
+      className: "bg-red-500 text-white",
     });
   };
 
