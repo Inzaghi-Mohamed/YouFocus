@@ -94,7 +94,7 @@ function EditCourseModal({ isOpen, onClose, course, onUpdate }) {
             </div>
           </div>
           <DialogFooter className="mt-4">
-            <Button type="submit">Update Course</Button>
+            <Button type="submit" className='bg-green-400 hover:bg-green-500'>Update Course</Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -175,7 +175,7 @@ export default function Courses() {
               {courses.map((course) => (
                 <Card key={course.id}>
                   <CardHeader>
-                    <CardTitle>{course.title}</CardTitle>
+                    <CardTitle><span className='text-green-500'>{course.title}</span></CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground mb-4">{course.description}</p>
@@ -254,7 +254,7 @@ export default function Courses() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit">Add Course</Button>
+                <Button type="submit" className='bg-green-400 hover:bg-green-500'>Add Course</Button>
               </CardFooter>
             </form>
           </Card>
@@ -278,7 +278,7 @@ export default function Courses() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setIsDeleteAlertOpen(false)}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete}>Delete</AlertDialogAction>
+            <AlertDialogAction onClick={confirmDelete} className='bg-red-500 hover:bg-red-600'>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

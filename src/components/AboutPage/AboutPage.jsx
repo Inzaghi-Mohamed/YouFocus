@@ -18,9 +18,9 @@ function AboutPage() {
         <section className="mb-12">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">What We Offer</h2>
           <ul className="list-disc list-inside text-gray-600">
-            <li>Personalized study planners</li>
-            <li>Focus-enhancing tools and techniques</li>
-            <li>Progress tracking and analytics</li>
+            <li>Personalized study planning.</li>
+            <li>Focus-enhancing tools and techniques.</li>
+            <li>Progress tracking and analytics.</li>
           </ul>
         </section>
 

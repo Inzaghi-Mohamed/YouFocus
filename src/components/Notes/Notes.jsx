@@ -99,7 +99,7 @@ export default function Notes() {
         {courses.map((course) => (
           <Card key={course.id}>
             <CardHeader>
-              <CardTitle>{course.title.toUpperCase()} - {notesSufix}</CardTitle>
+              <CardTitle> <span className='text-green-500'>{course.title.toUpperCase()}</span> - {notesSufix}</CardTitle>
             </CardHeader>
             <CardContent>
               <Textarea
@@ -134,14 +134,14 @@ export default function Notes() {
       <AlertDialog open={deletingNoteId !== null} onOpenChange={() => setDeletingNoteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure you want to delete this note?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure you want to delete your entire note(s)?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the note for this course. But not the Note card!
+              This action cannot be undone. This will permanently delete the note for this course. But not the Note card !
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDeleteNote}>Delete</AlertDialogAction>
+            <AlertDialogAction onClick={confirmDeleteNote} className='bg-red-500 hover:bg-red-600'>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

@@ -61,9 +61,9 @@ const YouTubeSearch = () => {
     };
     dispatch({ type: 'ADD_VIDEO', payload: videoData });
     toast({
-      title: "Video Added✅",
-      description: "The video has been added to your course.",
-      className: "bg-green-500 border-white text-white",
+      title: "Video Successfully Added ✅",
+      description: "The video has been added to your Selected Videos.",
+      className: "bg-green-500 border-none text-white",
       duration: 3000,
     });
   };
