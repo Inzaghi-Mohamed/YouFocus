@@ -82,7 +82,7 @@ const YouTubeSearch = () => {
   );
 
   return (
-    <div className='container mx-auto px-4 py-8 '>
+    <div className='container mx-auto mt-20 px-4 py-8 '>
       <h2 className='text-center mb-4 font-bold'>YouTube Search View</h2>
       <div className='search-section mb-8'>
         <input

@@ -169,7 +169,7 @@ export default function Courses() {
         <div>
           <h2 className="text-2xl font-semibold mb-4">Your Courses</h2>
           {courses.length === 0 ? (
-            <p className="text-muted-foreground">No courses added yet.</p>
+            <p className="text-muted-foreground">No courses added yet.Please, use the form to <span className='text-blue-700'>Add new Course.</span></p>
           ) : (
             <div className="space-y-4">
               {courses.map((course) => (
