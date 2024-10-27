@@ -186,7 +186,7 @@ export default function Courses() {
                   </CardContent>
                   <CardFooter>
                     <div className="flex justify-between items-center gap-40">
-                      <Button variant="outline" size="sm" onClick={() => handleUpdate(course)}>
+                      <Button className='bg-green-500 hover:bg-green-600 text-white' size="sm" onClick={() => handleUpdate(course)}>
                         <Edit className="w-4 h-4 mr-2" />
                         Edit
                       </Button>
