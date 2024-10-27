@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -7,9 +7,14 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 function Nav() {
   const user = useSelector((store) => store.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const isActive = (path) => {
+    return location.pathname === path ? 'bg-green-500' : 'hover:bg-green-500';
   };
 
   return (
@@ -19,34 +24,34 @@ function Nav() {
           <div className="flex items-center">
             <Link to="/home" className="flex justify-between items-center">
               <img src="/images/YouFocusLogo.png" alt="" className='w-14 border rounded-full ' />
-                 <h2 className="text-xl font-bold">YouFocus</h2>
+              <h2 className="text-xl font-bold">YouFocus</h2>
             </Link>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {!user.id && (
-                <Link className=" bg-green-500 hover:bg-green-400 px-3 py-2 rounded-md text-sm font-medium" to="/registration">
+                <Link className={`${isActive('/registration')} px-3 py-2 rounded-md text-sm font-medium`} to="/registration">
                   Get Started
                 </Link>
               )}
               {user.id && (
                 <>
-                  <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/user">
+                  <Link className={`${isActive('/user')} px-3 py-2 rounded-md text-sm font-medium`} to="/user">
                     Courses
                   </Link>
-                  <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/info">
-                   Notes
+                  <Link className={`${isActive('/info')} px-3 py-2 rounded-md text-sm font-medium`} to="/info">
+                    Notes
                   </Link>
-                  <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/Yt-search">
-                 Youtube Search
+                  <Link className={`${isActive('/Yt-search')} px-3 py-2 rounded-md text-sm font-medium`} to="/Yt-search">
+                    Youtube Search
                   </Link>
-                  <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/selectedVideos">
-                Selected Videos
-                </Link>
+                  <Link className={`${isActive('/selectedVideos')} px-3 py-2 rounded-md text-sm font-medium`} to="/selectedVideos">
+                    Selected Videos
+                  </Link>
                   <LogOutButton className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" />
                 </>
               )}
-              <Link className="hover:bg-green-500 px-3 py-2 rounded-md text-sm font-medium" to="/about">
+              <Link className={`${isActive('/about')} px-3 py-2 rounded-md text-sm font-medium`} to="/about">
                 About
               </Link>
             </div>
@@ -67,28 +72,28 @@ function Nav() {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {!user.id && (
-              <Link className="bg-green-500 hover:bg-green-400 block px-3 py-2 rounded-md text-base font-medium" to="/login" onClick={toggleMenu}>
+              <Link className={`${isActive('/login')} block px-3 py-2 rounded-md text-base font-medium`} to="/login" onClick={toggleMenu}>
                 Get Started
               </Link>
             )}
             {user.id && (
               <>
-                <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/user" onClick={toggleMenu}>
-                 Courses
+                <Link className={`${isActive('/user')} block px-3 py-2 rounded-md text-base font-medium`} to="/user" onClick={toggleMenu}>
+                  Courses
                 </Link>
-                <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/info" onClick={toggleMenu}>
-                 Notes
+                <Link className={`${isActive('/info')} block px-3 py-2 rounded-md text-base font-medium`} to="/info" onClick={toggleMenu}>
+                  Notes
                 </Link>
-                <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/Yt-search" onClick={toggleMenu}>
-                YouTube Search
+                <Link className={`${isActive('/Yt-search')} block px-3 py-2 rounded-md text-base font-medium`} to="/Yt-search" onClick={toggleMenu}>
+                  YouTube Search
                 </Link>
-                <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/selectedVideos" onClick={toggleMenu}>
-                Selected Videos
+                <Link className={`${isActive('/selectedVideos')} block px-3 py-2 rounded-md text-base font-medium`} to="/selectedVideos" onClick={toggleMenu}>
+                  Selected Videos
                 </Link>
                 <LogOutButton className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left" onClick={toggleMenu} />
               </>
             )}
-            <Link className="hover:bg-green-500 block px-3 py-2 rounded-md text-base font-medium" to="/about" onClick={toggleMenu}>
+            <Link className={`${isActive('/about')} block px-3 py-2 rounded-md text-base font-medium`} to="/about" onClick={toggleMenu}>
               About
             </Link>
           </div>
