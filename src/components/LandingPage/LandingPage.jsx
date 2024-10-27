@@ -30,7 +30,7 @@ function LandingPage() {
           </div>
           <div className="lg:w-1/2">
             <img 
-              src="./images/LandingImage.jpg" 
+              src="./images/Profil2.jpg" 
               alt="YouFocus App" 
               className="rounded-lg shadow-xl w-full max-w-md mx-auto"
             />
@@ -66,7 +66,7 @@ function LandingPage() {
           <blockquote className="text-2xl italic mb-8">
             "YouFocus transformed my study habits. I'm more organized and productive than ever!"
           </blockquote>
-          <p className="font-semibold">- Sarah K., Medical Student</p>
+          <p className="font-semibold">- Abdirizak M. - Software Engineering Student</p>
         </div>
       </div>
 
