@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function LandingPage() {
-  const [heading] = useState('YouFocus');
+  const [heading] = useState('Focus. Learn. Succeed.');
   const history = useHistory();
 
   const onLogin = (event) => {
@@ -16,17 +16,17 @@ function LandingPage() {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-1/2 text-center lg:text-left">
             <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
-              Welcome to <span className="text-blue-600">{heading}</span>
+              <span className="text-blue-600">{heading}</span>
             </h1>
             <p className="text-xl lg:text-2xl text-gray-600 mb-8">
-              Organize, Focus, and Succeed with YouFocus - Your Ultimate Learning Companion
+              Unlock your potential with YouFocus - Your Ultimate Learning Companion.
             </p>
             <button 
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl transition duration-300 ease-in-out transform hover:scale-105"
-            onClick={onLogin}
-          >
-           JOIN
-          </button>
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl transition duration-300 ease-in-out transform hover:scale-105"
+              onClick={onLogin}
+            >
+              JOIN NOW
+            </button>
           </div>
           <div className="lg:w-1/2">
             <img 
@@ -75,7 +75,7 @@ function LandingPage() {
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">Ready to Elevate Your Learning?</h2>
           <button 
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl transition duration-300 ease-in-out transform hover:scale-105"
+            className="bg-green-500  hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-xl transition duration-300 ease-in-out transform hover:scale-105"
             onClick={onLogin}
           >
             Get Started

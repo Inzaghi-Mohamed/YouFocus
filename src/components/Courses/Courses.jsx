@@ -278,7 +278,7 @@ export default function Courses() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setIsDeleteAlertOpen(false)}>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} className='bg-red-500 hover:bg-red-600'>Delete</AlertDialogAction>
+            <AlertDialogAction onClick={confirmDelete} className='bg-red-500 hover:bg-red-600'>OK</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

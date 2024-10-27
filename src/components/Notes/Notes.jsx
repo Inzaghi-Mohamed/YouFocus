@@ -37,8 +37,8 @@ export default function Notes() {
         return acc
       }, {})
       setNotes(initialNotes)
-      setIsLoading(false)
     }
+    setIsLoading(false)
   }, [courses])
 
   const handleNoteChange = (courseId, value) => {
@@ -89,59 +89,65 @@ export default function Notes() {
   }
 
   if (isLoading) {
-    return <div>Loading notes...</div>
+    return <div className="container mx-auto mt-20 px-4 py-8 text-center">Loading notes...</div>
   }
 
   return (
     <div className="container mx-auto mt-20 px-4 py-8">
       <h2 className="text-3xl font-bold mb-8 text-center">My Notes</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courses.map((course) => (
-          <Card key={course.id}>
-            <CardHeader>
-              <CardTitle> <span className='text-green-500'>{course.title.toUpperCase()}</span> - {notesSufix}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                value={notes[course.id] || ''}
-                onChange={(e) => handleNoteChange(course.id, e.target.value)}
-                disabled={editingNoteId !== course.id}
-                className="min-h-[128px]"
-                placeholder="Take your notes here..."
-              />
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              {editingNoteId === course.id ? (
-                <Button onClick={() => handleSaveNote(course.id)} variant="default">
-                  <Save className="w-4 h-4 mr-2 " />
-                  Save
+      {courses.length === 0 ? (
+        <div className="text-center text-gray-600">
+          <p>No courses added yet. Please add a course in the Courses section to start taking notes.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courses.map((course) => (
+            <Card key={course.id}>
+              <CardHeader>
+                <CardTitle> <span className='text-green-500'>{course.title.toUpperCase()}</span> - {notesSufix}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Textarea
+                  value={notes[course.id] || ''}
+                  onChange={(e) => handleNoteChange(course.id, e.target.value)}
+                  disabled={editingNoteId !== course.id}
+                  className="min-h-[128px]"
+                  placeholder="Take your notes here..."
+                />
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                {editingNoteId === course.id ? (
+                  <Button onClick={() => handleSaveNote(course.id)} variant="default">
+                    <Save className="w-4 h-4 mr-2 " />
+                    Save
+                  </Button>
+                ) : (
+                  <Button className ='bg-green-500 hover:bg-green-600 text-white' onClick={() => handleEditNote(course.id)} variant="secondary">
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit
+                  </Button>
+                )}
+                <Button onClick={() => handleDeleteNote(course.id)} variant="destructive">
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete
                 </Button>
-              ) : (
-                <Button onClick={() => handleEditNote(course.id)} variant="secondary">
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit
-                </Button>
-              )}
-              <Button onClick={() => handleDeleteNote(course.id)} variant="destructive">
-                <Trash2 className="w-4 h-4 mr-2" />
-                Delete
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      )}
 
       <AlertDialog open={deletingNoteId !== null} onOpenChange={() => setDeletingNoteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure you want to delete your entire note(s)?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the note for this course. But not the Note card !
+              This action cannot be undone. This will permanently delete the note for this course. But not the note card !
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDeleteNote} className='bg-red-500 hover:bg-red-600'>Delete</AlertDialogAction>
+            <AlertDialogAction onClick={confirmDeleteNote} className='bg-red-500 hover:bg-red-600'>OK</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
