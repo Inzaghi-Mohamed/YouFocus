@@ -20,7 +20,7 @@ function AboutPage() {
           <ul className="list-disc list-inside text-gray-600">
             <li>Personalized study planning.</li>
             <li>Focus-enhancing tools and techniques.</li>
-            <li>Progress tracking and analytics.</li>
+            <li>Progress tracking.</li>
           </ul>
         </section>
 
