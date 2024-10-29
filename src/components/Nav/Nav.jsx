@@ -24,7 +24,7 @@ function Nav() {
           <div className="flex items-center">
             <Link to="/home" className="flex justify-between items-center">
               <img src="/images/YouFocusLogo.png" alt="" className='w-14 border rounded-full ' />
-              <h2 className="text-xl font-bold">YouFocus</h2>
+              <h2 className="text-xl font-bold bg-gradient-to-r from-yellow-300 to-pink-600 text-transparent bg-clip-text">YouFocus</h2>
             </Link>
           </div>
           <div className="hidden md:block">
