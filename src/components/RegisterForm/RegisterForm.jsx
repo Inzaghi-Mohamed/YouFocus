@@ -60,7 +60,7 @@ function RegisterForm() {
           name="submit"
           value="Sign Up"
         />
-        <p className='font-thin mt-2'>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy.</p>
+        <p className='font-thin mt-2'>By clicking Sign Up, you agree to our <a href="#" className='text-blue-700 hover:underline'>terms</a>, <a href="#" className='text-blue-700 hover:underline'>Privacy Policy</a> and <a href="#" className='text-blue-700 hover:underline'>Cookies Policy.</a></p>
       </div>
     </form>
   );
