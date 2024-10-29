@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
   const [heading] = useState('Focus. Learn. Succeed.');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onLogin = (event) => {
-    history.push('/registration');
+    navigate('/registration');
   };
 
   return (

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
 function RegisterPage() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -16,7 +16,7 @@ function RegisterPage() {
           type="button"
           className="bg-green-500 hover:bg-green-700   text-white p-2 my-2 border rounded-md cursor-pointer"
           onClick={() => {
-            history.push('/login');
+            navigate('/login');
           }}
         >
           Login

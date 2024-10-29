@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -106,7 +106,7 @@ export default function Courses() {
   const dispatch = useDispatch()
   const courses = useSelector((state) => state.courses)
   const user = useSelector((state) => state.user)
-  const history = useHistory()
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -157,7 +157,7 @@ export default function Courses() {
   }
 
   const handleYouTubeSearch = (courseTitle) => {
-    history.push(`/Yt-search?query=${encodeURIComponent(courseTitle)}`)
+    navigate(`/Yt-search?query=${encodeURIComponent(courseTitle)}`)
   }
 
   return (
