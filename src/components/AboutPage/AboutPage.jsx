@@ -37,6 +37,17 @@ function AboutPage() {
             Have questions or feedback? We'd love to hear from you! Reach out to us at <a href="mailto:inzaghi3650@gmail.com" className="text-blue-600 hover:underline">support@youfocus.com</a>.
           </p>
         </section>
+
+        <section className="mb-4 mt-7">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4 bg-gradient-to-r from-green-300 to-blue-600 text-transparent bg-clip-text">Technologies</h2>
+          <ul className="list-disc list-inside text-gray-600">
+            <li> Client-side: React</li>
+            <li> State management: Redux, Redux-Saga</li>
+            <li>Styling: ShadCn and Tailwind CSS.</li>
+            <li>Server-side: Node/Express, Passport</li>
+            <li>Dabatase: PostgreSQL</li>
+          </ul>
+        </section>
       </div>
     </div>
   );
