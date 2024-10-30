@@ -29,7 +29,9 @@ CREATE TABLE videos (
    " added_at" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 );
 
-
+--  I haven't used this juncture table yet...because I added 'Search query' field to the Videos table
+--  Perhaps I will use it if I add another feature to the App
+-- However, the App works as I wanted.
  CREATE courses_videos(
       "id" SERIAL PRIMARY KEY,
       "video_id" INT REFERENCES "video"(id),
