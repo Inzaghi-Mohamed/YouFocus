@@ -1,9 +1,9 @@
 {
-  "name": "prime-solo-project",
+  "name": "youfocus",
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=18.x"
+    "node": "20.x"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",
@@ -37,22 +37,23 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "client": "vite",
-    "server": "nodemon --watch server server/server.js",
-    "build": "vite build",
-    "test": "vitest"
+    "start": "node server/server.js", 
+    "client": "vite", 
+    "server": "nodemon --watch server/server.js", 
+    "build": "vite build", 
+    "test": "vitest", 
+    "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
-    "@types/node": "^22.7.7",
-    "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.20",
-    "nodemon": "^3.1.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
-    "vite": "^5.2.11",
-    "vitest": "^1.6.0"
+    "@types/node": "^22.7.7", 
+    "@types/react-router-dom": "^5.3.3", 
+    "@vitejs/plugin-react": "^4.2.1", 
+    "autoprefixer": "^10.4.20", 
+    "nodemon": "^3.1.0", 
+    "postcss": "^8.4.47", 
+    "tailwindcss": "^3.4.14", 
+    "vite": "^5.2.11", 
+    "vitest": "^1.6"
   },
   "browserslist": {
     "production": [
@@ -66,6 +67,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "heroku-run-build-script": true
+  }
 }
