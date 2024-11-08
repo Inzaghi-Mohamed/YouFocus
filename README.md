@@ -4,7 +4,6 @@
 - [Overview](#overview)
 - [Features](#features)
 - [Application Views](#application-views)
-- [Database Structure](#database-structure)
 - [Supported Browsers](#supported-browsers)
 - [APIs](#apis)
 - [Technologies](#technologies)
@@ -60,9 +59,6 @@ Created by Abdirizak Mohamed, this application allows users to create courses, s
 
 
 
-## Database Structure
-
-(Include your database schema here)
 
 ## Supported Browsers
 
@@ -101,6 +97,15 @@ To install the project dependencies, run the following command:
 
 ```bash
 npm install
+
+To run the Client:
+
+npm run client
+
+
+To run the Server:
+
+npm run server
 
 
 
