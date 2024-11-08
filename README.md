@@ -1,6 +1,6 @@
 # YouFocus (PLMS: Personal Learning Management System)
 
-![Project Screenshot](./images/youfocus.png)
+![Project Screenshot](./images/YouFocusLogo.png)
 
 
 ## Table of Contents
