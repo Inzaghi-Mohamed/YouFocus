@@ -98,13 +98,14 @@ To install the project dependencies, run the following command:
 ```bash
 npm install
 
-
+---
 
 
 To run the Client:
 ```bash
 npm run client
 
+---
 
 To run the Server:
 ```bash
