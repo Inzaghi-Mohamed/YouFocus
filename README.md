@@ -2,6 +2,9 @@
 
 ![Alt text](./public/images/YouFocusLogo.png)
 
+You can the App at: https://youfocus.techscripted.info
+
+
 
 
 ## Table of Contents
